@@ -4,6 +4,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
   //Nos permite decir cual es el punto de entrada de nuestra aplicación
@@ -17,6 +19,7 @@ module.exports = {
     filename: '[name].[contenthash].js',
     assetModuleFilename: 'assets/images/[hash][ext][query]'
   },
+  mode: 'production',
   resolve: {
     extensions: ['.js'],
     alias: {
@@ -84,7 +87,9 @@ module.exports = {
           to: "assets/images"
         }
       ]
-    })
+    }),
+    new Dotenv(),
+    new CleanWebpackPlugin(),
   ],
   /* Recurso de optimización 
   Css Minimizer es para optimizar CSS
